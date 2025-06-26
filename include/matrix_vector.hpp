@@ -4,11 +4,11 @@
 
 class Matrix {
     public:
-        Matrix(std::vector<double> aa, std::vector<int> ii, std::vector<int> jj, int n, int nnz, int ibeg, int iend);
+        Matrix(std::vector<double> aa, std::vector<int> ii, std::vector<int> jj, int n, int ibeg, int iend);
         std::vector<double> aa;
         std::vector<int> ii; 
         std::vector<int> jj;
-        int n, nnz, ibeg, iend;
+        int n, ibeg, iend;
 };
 
 class Vector{

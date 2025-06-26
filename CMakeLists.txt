@@ -8,7 +8,11 @@ find_package(MPI REQUIRED)
 
 include_directories(include ${MPI_INCLUDE_PATH})
 
-add_executable(grayscott src/main.cpp)
+add_executable(grayscott 
+                src/main.cpp
+                src/matrix_vector.cpp
+                src/initial.cpp
+                src/create_matrix.cpp)
 
 target_link_libraries(grayscott ${MPI_LIBRARIES})
 

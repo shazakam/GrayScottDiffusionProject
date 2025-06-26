@@ -22,57 +22,62 @@ Matrix createMatrix(int m, Matrix Delta){
     n = m*m;
     rows_per_process = n / numprocs;
 
-    start_row = myid*rows_per_process + 1;
+    start_row = myid*rows_per_process;
     end_row = (myid+1)*rows_per_process;
 
-    inz = 1;
+    inz = 0;
 
-    for (int irow = start_row; irow <= end_row; irow++){
+    for (int irow = start_row; irow < end_row; irow++){
         // Cartesian index splitting
-        j = (irow-1)/m + 1;
-        i + irow - (j-1)*m;
+        j = (irow)/m + 1;
+        i = irow - (j-1)*m;
 
-        Delta.ii[irow-start_row+1] = inz;
+        Delta.ii[irow-start_row] = inz;
 
-        Delta.aa[inz] = -4.0 * pow(m,2);
+        Delta.aa[inz] = -4.0 * m*m;
         Delta.jj[inz] = irow;
 
         inz = inz + 1;
 
-        Delta.aa[inz] = pow(m,2);
+        // Left Neighbour
+        Delta.aa[inz] = m*m;
         next = i-1;
-        if (next < 1) {
-            next = m;
+        if (next < 0) {
+            next = m-1;
         }
-        Delta.jj[inz] = next + (j-1)*m;
+        Delta.jj[inz] = next + (j)*m;
 
         inz = inz + 1;
 
-        Delta.aa[inz] = pow(m, 2);
+        // Right Neighbour
+        Delta.aa[inz] = m*m;
         next = i+1;
-        if(next > m){
-            next = 1;
+        if(next >= m){
+            next = 0;
         }
-        Delta.jj[inz] = next + (j-1)*m;
+        Delta.jj[inz] = next + j*m;
         inz = inz + 1;
 
-        Delta.aa[inz] = pow(m, 2);
+        // Bottom Neighbour
+        Delta.aa[inz] = m*m;
         next = j-1;
-        if(next < 1){
-            next = m;
+        if(next < 0){
+            next = m-1;
         }
+        Delta.jj[inz] = i + next * m;
         inz = inz + 1;
 
-        Delta.aa[inz] = pow(m,2);
+        // Top Neighbour
+        Delta.aa[inz] = m*m;
         next = j+1;
-        if(next > m){
-            next = 1;
+        if(next >= m){
+            next = 0;
         }
+        Delta.jj[inz] = i + next * m;
         inz = inz + 1;
     }
 
-    Delta.ii[rows_per_process+1] = inz;
-    Delta.nnz = inz-1;
+    Delta.ii[rows_per_process] = inz;
 
     return Delta;
 };
