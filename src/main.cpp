@@ -7,14 +7,24 @@
 #include <iostream>
 #include <string>
 
-void printMatrix(std::vector<std::vector<double>> matrix) {
-    for (const auto& row : matrix) {
-        std::cout << "| ";
-        for (double val : row) {
-            std::cout << val << " ";
-        }
-        std::cout << "|\n";
-    }
+void printCRSMatrix(std::vector<std::vector<double>> matrix) {
+    /* Print the matrix in Compressed Row Storage (CRS) format
+
+    for i in range(matrix size)
+        row_start = matrix.ii[i]
+        row_end = matrix.ii[i+1] - 1
+
+        k = row_start
+        
+        for j in range(matrix.size)
+            if k <= row_end and matrix.jj[k] == j then
+                print matrix.aa[k]
+                k++
+            else
+                print 0      
+    */ 
+
+
 }
 
 void printVector(std::vector<double> vec) {
@@ -66,7 +76,7 @@ int main(int argc, char** argv){
     nrows = iend - ibeg + 1;
     
     std::vector<double> aa(5*rows_per_process); // nnz values in matrix
-    std::vector<int> ii(rows_per_process+1); // Column indices
+    std::vector<int> ii(rows_per_process+1); // Column startindices
     std::vector<int> jj(5*rows_per_process); // Row start index
 
 
@@ -76,7 +86,14 @@ int main(int argc, char** argv){
 
     Delta = createMatrix(m, Delta);
 
+    // TODO: Output vector and matrix to file for debugging
     printVector(Delta.aa);
+
+    // TODO: Initialize vectors u and v and test output
+
+    // TODO: Finish timestepping script
+
+    // TODO: Write solution to gif / video file
 
     return 0;
 }

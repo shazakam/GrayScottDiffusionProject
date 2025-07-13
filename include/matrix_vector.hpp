@@ -5,9 +5,9 @@
 class Matrix {
     public:
         Matrix(std::vector<double> aa, std::vector<int> ii, std::vector<int> jj, int n, int ibeg, int iend);
-        std::vector<double> aa;
-        std::vector<int> ii; 
-        std::vector<int> jj;
+        std::vector<double> aa; // Non-zero values in matrix
+        std::vector<int> ii; // Column indices of non-zero values
+        std::vector<int> jj; // Row indices of non-zero values
         int n, ibeg, iend;
 };
 

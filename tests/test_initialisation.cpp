@@ -3,7 +3,7 @@
 #include "create_matrix.hpp"
 #include "initial.hpp"
 #include <iostream>
-#include <gtest/gtest.h>
+
 
 void printVector(std::vector<int>& vec) {
     std::cout << "[ ";
@@ -14,16 +14,6 @@ void printVector(std::vector<int>& vec) {
 }
 
 void printMatrix(std::vector<std::vector<int>>& matrix) {
-    for (const auto& row : matrix) {
-        std::cout << "| ";
-        for (int val : row) {
-            std::cout << val << " ";
-        }
-        std::cout << "|\n";
-    }
-}
-
-TEST(INITIALISATION, TestCreateMatrix){
     
 }
 
