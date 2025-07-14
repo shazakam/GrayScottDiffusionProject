@@ -7,9 +7,8 @@
 #include <iostream>
 #include <string>
 
-void printCRSMatrix(std::vector<std::vector<double>> matrix) {
+void printCRSMatrix(Matrix matrix){
     /* Print the matrix in Compressed Row Storage (CRS) format
-
     for i in range(matrix size)
         row_start = matrix.ii[i]
         row_end = matrix.ii[i+1] - 1
@@ -24,7 +23,23 @@ void printCRSMatrix(std::vector<std::vector<double>> matrix) {
                 print 0      
     */ 
 
+    for (int i  = 0; i < matrix.aa.size();i++){
+        int row_start = matrix.ii[i];
+        int row_end = matrix.ii[i+1] - 1;
 
+        int k = row_start;
+
+        for (int j = 0; j < matrix.aa.size(); j++){
+            if (k <= row_end && matrix.jj[k] == j){
+                std::cout << matrix.aa[k] << " ";
+                k = k + 1;
+            }
+            else{
+                std::cout << 0 << " ";
+            }
+        }
+         std::cout << "\n";
+    }
 }
 
 void printVector(std::vector<double> vec) {
