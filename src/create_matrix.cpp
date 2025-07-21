@@ -29,8 +29,8 @@ Matrix createMatrix(int m, Matrix Delta){
 
     for (int irow = start_row; irow < end_row; irow++){
         // Cartesian index splitting
-        j = (irow)/m + 1;
-        i = irow - (j-1)*m;
+        j = (irow)/m;
+        i = irow - j*m;
 
         Delta.ii[irow-start_row] = inz;
 

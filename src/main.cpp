@@ -7,42 +7,47 @@
 #include <iostream>
 #include <string>
 
-void printCRSMatrix(Matrix matrix){
-    /* Print the matrix in Compressed Row Storage (CRS) format
-    for i in range(matrix size)
-        row_start = matrix.ii[i]
-        row_end = matrix.ii[i+1] - 1
+// THE FUCKING VALUES ARE NOT SORTED 
+void printCRSMatrix(const Matrix& matrix) {
+    std::ofstream outFile("matrix.txt");
 
-        k = row_start
+    // Check if the file is successfully opened
+    if (!outFile) {
+        std::cerr << "Error opening file for writing!" << std::endl;
+        return;
+    }
+
+    int num_rows = matrix.ii.size()-1;
+    int aa_jj_val_idx = 0;
+
+    // For every row
+    for (int i = 0; i < num_rows; i++){
+        int row_start_idx = matrix.ii[i];
+        int row_end_idx = matrix.ii[i+1];
         
-        for j in range(matrix.size)
-            if k <= row_end and matrix.jj[k] == j then
-                print matrix.aa[k]
-                k++
-            else
-                print 0      
-    */ 
+        for (int j = 0; j < matrix.n; j++){
 
-    for (int i  = 0; i < matrix.aa.size();i++){
-        int row_start = matrix.ii[i];
-        int row_end = matrix.ii[i+1] - 1;
-
-        int k = row_start;
-
-        for (int j = 0; j < matrix.aa.size(); j++){
-            if (k <= row_end && matrix.jj[k] == j){
-                std::cout << matrix.aa[k] << " ";
-                k = k + 1;
+            if (aa_jj_val_idx <= row_end_idx && matrix.jj[aa_jj_val_idx] == j){
+                outFile << matrix.aa[aa_jj_val_idx] << " ";
+                aa_jj_val_idx++;
             }
+
             else{
-                std::cout << 0 << " ";
+                outFile << 0 << " ";
             }
         }
-         std::cout << "\n";
+        outFile << "\n";
     }
 }
 
 void printVector(std::vector<double> vec) {
+    std::cout << "[ ";
+    for (double val : vec) {
+        std::cout << val << " ";
+    }
+    std::cout << "]\n";
+}
+void printVectorInt(std::vector<int> vec) {
     std::cout << "[ ";
     for (double val : vec) {
         std::cout << val << " ";
@@ -91,8 +96,8 @@ int main(int argc, char** argv){
     nrows = iend - ibeg + 1;
     
     std::vector<double> aa(5*rows_per_process); // nnz values in matrix
-    std::vector<int> ii(rows_per_process+1); // Column startindices
-    std::vector<int> jj(5*rows_per_process); // Row start index
+    std::vector<int> ii(rows_per_process+1); // row column start indices
+    std::vector<int> jj(5*rows_per_process); // row index
 
 
 
@@ -103,6 +108,12 @@ int main(int argc, char** argv){
 
     // TODO: Output vector and matrix to file for debugging
     printVector(Delta.aa);
+
+    printVectorInt(Delta.ii);
+
+    printVectorInt(Delta.jj);
+
+    printCRSMatrix(Delta);
 
     // TODO: Initialize vectors u and v and test output
 
