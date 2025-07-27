@@ -114,6 +114,6 @@ int main(int argc, char** argv){
 
     timeStepping(u, v, tau, T, F, k, Du, Dv);
 
-    // Write solution to picture - eventually also do Gif!
+    // TODO: Make a write to image function
     return 0;
 }

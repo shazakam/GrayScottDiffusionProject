@@ -4,6 +4,11 @@ void RHS(Vector &u, Vector &v, double F, double k, double Du, double Dv, Matrix 
 
     std::vector<double> u_v_v(u.n);
 
+    // TODO: Test mat_mult, 
+    // TODO: Test element_wise_vector_mult
+    // TODO: Test add_scaled_slice
+    // TODO: Test add_constant_to_vector
+    
     // define in matrix_vector file
     mat_mult(Delta, Du, u.xx, ru);
     mat_mult(Delta, Dv, v.xx, rv);
