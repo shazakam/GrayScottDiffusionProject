@@ -13,7 +13,3 @@ void printVector(std::vector<int>& vec) {
     std::cout << "]\n";
 }
 
-void printMatrix(std::vector<std::vector<int>>& matrix) {
-    
-}
-

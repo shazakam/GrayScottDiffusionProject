@@ -21,4 +21,13 @@ class Vector{
         int ibeg, iend; // Portion of vector processor x is responsible for
 };
 
+// &a is memory reference to vector 1, &b is memory reference to vector 2 to add with a, c is reference to output iterator, tau is a constant, ibeg and iend are start and end indices
+// Fourth argument refers to where in memory the iterating updates should be changed
+void add_scaled_slice(std::vector<double> &a, std::vector<double> &b, std::vector<double> &c, double tau, int ibeg, int iend);
+
+void element_wise_vector_mult(std::vector<double> &a, std::vector<double> &b, std::vector<double> &c, int ibeg, int iend);
+
+void add_constant_to_vector(std::vector<double> &a, double adding_constant, std::vector<double> &c, int ibeg, int iend);
+
+void mat_mult(Matrix A, double alpha, std::vector<double> &u, std::vector<double> &b);
 #endif 

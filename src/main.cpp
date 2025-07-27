@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <timestepping.hpp>
 
 // THE FUCKING VALUES ARE NOT SORTED 
 void printCRSMatrix(const Matrix& matrix) {
@@ -99,27 +100,20 @@ int main(int argc, char** argv){
     std::vector<int> ii(rows_per_process+1); // row column start indices
     std::vector<int> jj(5*rows_per_process); // row index
 
-
-
     // Adjust the arguments below to match the actual Matrix constructor signature
     Matrix Delta(aa, ii, jj, n, ibeg, iend);
-
     Delta = createMatrix(m, Delta);
 
-    // TODO: Output vector and matrix to file for debugging
-    printVector(Delta.aa);
+    std::vector<double> u_xx(n);
+    std::vector<double> v_xx(n);
 
-    printVectorInt(Delta.ii);
+    Vector u(u_xx, n, ibeg, iend);
+    Vector v(v_xx, n, ibeg, iend);
 
-    printVectorInt(Delta.jj);
+    initial(m, u, v);
 
-    printCRSMatrix(Delta);
+    timeStepping(u, v, tau, T, F, k, Du, Dv);
 
-    // TODO: Initialize vectors u and v and test output
-
-    // TODO: Finish timestepping script
-
-    // TODO: Write solution to gif / video file
-
+    // Write solution to picture - eventually also do Gif!
     return 0;
 }
